@@ -1,0 +1,15 @@
+{
+  "name": "twilio-app",
+  "version": "1.0.0",
+  "description": "An app that allows you to send a text message via the twilio api",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.6.2",
+    "express": "^4.17.1"
+  }
+}

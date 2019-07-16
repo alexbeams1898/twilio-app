@@ -1,0 +1,11 @@
+form {
+  display: flex;
+  flex-direction: column;
+}
+.main-header {
+  text-align: center;
+}
+.sms-container {
+  display: grid;
+  justify-content: center;
+}

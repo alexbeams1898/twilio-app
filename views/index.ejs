@@ -12,14 +12,36 @@
   </head>
 
   <body>
-    <h1 class="main-header">Send a text</h1>
-    <div class="sms-container">
+    <header>
+      <h1 class="main-header">Send a text</h1>
+    </header>
+    <main>
       <form action="/" method="post">
-        <input type="text" name="fromNumber" />
-        <input type="text" name="toNumber" />
-        <textarea name="message" id="" cols="40" rows="10"></textarea>
-        <input type="submit" value="Send" />
+        <div class="sms-container">
+          <fieldset>
+            <label for="from"
+              >from the following
+              <strong>valid twilio number</strong> (+1XXXXXXXXXX)
+            </label>
+            <input type="text" name="fromNumber" class="text-box" id="from" />
+            <label for="to"
+              >to any phone number (try yours!) (+1XXXXXXXXXX)</label
+            >
+            <input type="text" name="toNumber" class="text-box" id="to" />
+            <label for="message">saying:</label>
+            <textarea
+              name="message"
+              id=""
+              cols="70"
+              rows="10"
+              class="text-box"
+              id="message"
+            ></textarea>
+            <input type="submit" value="Send" class="button" />
+          </fieldset>
+        </div>
       </form>
-    </div>
+    </main>
+    <footer>Copyright &copy; 2019</footer>
   </body>
 </html>

@@ -4,9 +4,9 @@ const bodyParser = require("body-parser");
 const twilio = require("twilio");
 const app = express(); // express object
 
-/* MY TWILIO ACCOUNT INFO FOR USING THE API */
-var accountSid = "AC81e5db08492c762a3ff114f5a633614f";
-var authToken = "0327f1092a4860a4a2574d71cb006c75";
+/* MY TWILIO ACCOUNT INFO FOR USING THE API/TWILIO NUMBER */
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
 
 /* CREATE NEW TWILIO OBJECT */
 var client = new twilio(accountSid, authToken);
@@ -20,18 +20,22 @@ app.get("/", function(req, res) {
   res.render("index");
 });
 
+/* GETS THE PHONE NUMBER AND MESSAGE FROM THE FORM */
 app.use(bodyParser.urlencoded({ extended: true }));
+
+/* ACTION AFTER THE 'SEND' BUTTON IS PRESSED (SENDS MESSAGE) */
 app.post("/", function(req, res) {
   let toNumber = req.body.toNumber;
-  let fromNumber = req.body.fromNumber;
   let message = req.body.message;
 
+  console.log(toNumber);
   client.messages.create({
     body: message,
     to: toNumber,
-    from: fromNumber
+    from: +15185011128
   });
-  res.render("index");
+
+  res.redirect("/");
 });
 
 app.listen(3000);

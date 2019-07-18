@@ -6,18 +6,14 @@ body {
   margin-top: 40px;
   background-color: #afe9e7;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-fieldset {
-  display: flex;
-  flex-direction: column;
-  border: 0;
+  font-size: 75px;
 }
 textarea {
   resize: none;
 }
 main {
   margin-top: 10px;
-  font-size: 1em;
+  font-size: 0.2em;
 }
 footer {
   position: fixed;
@@ -28,9 +24,10 @@ footer {
   color: rgb(255, 255, 255);
   text-align: center;
   padding: 16px;
+  font-size: 0.2em;
 }
 
-/****** HTML CLASSES ******/
+/****** CLASSES ******/
 .button {
   background-color: #000000;
   border: none;
@@ -38,10 +35,9 @@ footer {
   color: white;
   padding: 8px 16px;
   margin-top: 16px;
-  text-align: center;
   text-decoration: none;
   font-size: 14px;
-  float: right;
+  align-self: center;
 }
 .text-box {
   width: 100%;
@@ -55,9 +51,14 @@ footer {
   margin: 5px;
   text-align: center;
 }
-.sms-container {
+.grid-container {
   display: grid;
   justify-content: center;
+}
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  border: 0;
 }
 
 /****** MEDIA QUERIES ******/
@@ -68,7 +69,7 @@ footer {
   }
   .main-header {
     font-size: 50px;
-    margin: 5px;
+    margin-bottom: 30px;
     text-align: center;
   }
 }

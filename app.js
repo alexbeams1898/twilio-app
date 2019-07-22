@@ -1,12 +1,14 @@
+/* MY TWILIO ACCOUNT INFO FOR USING THE API/TWILIO NUMBER */
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const authyKey = process.env.TWILIO_AUTHY_API_KEY;
+
 /* REQUIRE STATEMENTS */
 const express = require("express");
 const bodyParser = require("body-parser");
 const twilio = require("twilio");
 const app = express(); // express object
-
-/* MY TWILIO ACCOUNT INFO FOR USING THE API/TWILIO NUMBER */
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
+const authy = require("authy")(authyKey);
 
 /* CREATE NEW TWILIO OBJECT */
 var client = new twilio(accountSid, authToken);
@@ -26,18 +28,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 /* ACTION AFTER THE 'SEND' BUTTON IS PRESSED (SENDS MESSAGE) */
 app.post("/", function(req, res) {
   let toNumber = req.body.toNumber;
-  let message = req.body.message;
+  let countryCode = toNumber[1];
+  let phoneNumber = toNumber.substring(2, toNumber.length);
 
-  console.log(toNumber);
-  client.messages.create({
-    body: message,
-    to: toNumber,
-    from: +15185011128
-  });
+  // Code that sends you a verification number
+  authy
+    .phones()
+    .verification_start(phoneNumber, countryCode, "sms", function(err, res) {
+      if (err) {
+        console.log(err);
+      }
+    });
 
   res.redirect("/");
 });
 
 app.listen(3000);
-
-// Test Numbers: +15185011128 +15184918838

@@ -8,11 +8,8 @@ body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-size: 75px;
 }
-textarea {
-  resize: none;
-}
 main {
-  margin-top: 10px;
+  margin-top: 40px;
   font-size: 0.2em;
 }
 footer {
@@ -41,8 +38,8 @@ footer {
 }
 .text-box {
   width: 100%;
-  margin: 5px;
-  border: 2px solid #e37222;
+  margin-top: 15px;
+  border: 2.5px solid #e37222;
   border-radius: 5px;
   font-size: 14px;
 }

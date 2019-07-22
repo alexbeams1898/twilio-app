@@ -13,7 +13,7 @@
 
   <body>
     <header>
-      <h1 class="main-header">Send a text</h1>
+      <h1 class="main-header">Send an Authorization Code</h1>
     </header>
     <main>
       <section>
@@ -21,25 +21,11 @@
           <div class="grid-container">
             <div class="flex-container">
               <label for="to"
-                >Enter your phone number here (+1XXXXXXXXXX):
+                >Enter your phone number with the format +1XXXXXXXXXX here
+                (replace "1" with your country code):
               </label>
               <input type="text" name="toNumber" class="text-box" id="to" />
-              <label for="message"
-                >and the message you would like to send:</label
-              >
-              <textarea
-                name="message"
-                id=""
-                cols="70"
-                rows="10"
-                class="text-box"
-                id="message"
-              ></textarea>
-              <input
-                type="submit"
-                value="Click Here to Magically Send This Message!"
-                class="button"
-              />
+              <input type="submit" value="Send Code" class="button" />
             </div>
           </div>
         </form>

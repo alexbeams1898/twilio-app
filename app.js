@@ -1,35 +1,48 @@
-/* MY TWILIO ACCOUNT INFO FOR USING THE API/TWILIO NUMBER */
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
+/* GET dotenv INFO */
+require("dotenv").config();
 const authyKey = process.env.TWILIO_AUTHY_API_KEY;
 
 /* REQUIRE STATEMENTS */
 const express = require("express");
 const bodyParser = require("body-parser");
-const twilio = require("twilio");
 const app = express(); // express object
 const authy = require("authy")(authyKey);
 
-/* CREATE NEW TWILIO OBJECT */
-var client = new twilio(accountSid, authToken);
+/* GETS THE PHONE NUMBER FROM THE FORM */
+app.use(bodyParser.urlencoded({ extended: true }));
 
 /* USES THE INDEX.EJS FILE AS A VIEW */
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 
-/* LOADS THE PAGE */
-app.get("/", function(req, res) {
+/* LOAD PAGES */
+
+//Loads index.ejs
+app.get("/", (req, res) => {
   res.render("index");
 });
+//Loads verify.ejs
+app.get("/verify", (req, res) => {
+  res.render("verify");
+});
+//Loads success.ejs
+app.get("/success", (req, res) => {
+  res.render("success");
+});
+//Loads failure.ejs
+app.get("/failure", (req, res) => {
+  res.render("failure");
+});
 
-/* GETS THE PHONE NUMBER AND MESSAGE FROM THE FORM */
-app.use(bodyParser.urlencoded({ extended: true }));
+var toNumber;
+var countryCode;
+var phoneNumber;
 
 /* ACTION AFTER THE 'SEND' BUTTON IS PRESSED (SENDS MESSAGE) */
-app.post("/", function(req, res) {
-  let toNumber = req.body.toNumber;
-  let countryCode = toNumber[1];
-  let phoneNumber = toNumber.substring(2, toNumber.length);
+app.post("/enter-number", function(req, res) {
+  toNumber = req.body.toNumber;
+  countryCode = toNumber[1];
+  phoneNumber = toNumber.substring(2, toNumber.length);
 
   // Code that sends you a verification number
   authy
@@ -39,8 +52,26 @@ app.post("/", function(req, res) {
         console.log(err);
       }
     });
+  res.redirect("/verify");
+});
 
-  res.redirect("/");
+app.post("/enter-ver-number", function(req, res) {
+  var resInstance = res;
+  let verificationNumber = req.body.verNumber;
+  authy
+    .phones()
+    .verification_check(phoneNumber, countryCode, verificationNumber, function(
+      err,
+      res
+    ) {
+      if (err) {
+        // invalid token
+        resInstance.redirect("/failure");
+      }
+      if (res) {
+        resInstance.redirect("/success");
+      }
+    });
 });
 
 app.listen(3000);
